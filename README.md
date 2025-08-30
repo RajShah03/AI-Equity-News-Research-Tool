@@ -1,56 +1,77 @@
-💹 AI Financial News Research Tool
+# 💹 AI Financial News Research Tool
 
-Equities 📈 | Commodities 🛢️ | Forex 💱
+A **Streamlit** app that scrapes the latest financial news and provides AI-powered insights for **Equities**, **Commodities**, and **Forex** markets using **LangChain + Ollama LLMs + FAISS**.
 
-An AI-powered research assistant that helps you analyze today’s financial markets and also provides reasoned forecasts for future-oriented questions.
+---
 
-🔍 Features
+## Features
 
-Equities Coverage → Stock indices, company news, sector movements
+- Scrapes financial news from multiple sources:
+  - Moneycontrol
+  - Economic Times
+  - Business Standard
+  - Investing (Commodities & Forex)
+- Converts scraped articles into embeddings using **OllamaEmbeddings**.
+- Stores embeddings locally using **FAISS** for fast retrieval.
+- AI-powered question answering based on current financial news.
+- Provides structured output:
+  - **Headline**: One short summary sentence  
+  - **Key Insights**: 3-5 bullet points (analysis, implications, risks, opportunities)  
+  - **Sources**: Cites scraped sources if available
 
-Commodities Coverage → Gold, Oil, Silver, etc.
+---
 
-Forex Coverage → Global currency trends
+## Demo
 
-Today’s Market Analysis → Uses scraped financial news for up-to-date insights
+- Local URL: `http://localhost:8501`
+- Network URL: `http://<your-local-ip>:8501`
 
-Future Forecasts → AI-generated analysis when real data is unavailable
+---
 
-⚡ Example Queries
+## Installation
 
-Today-based question
+1. Clone the repository:
 
-What is the impact of U.S. tariffs on India?
+```bash
+git clone https://github.com/RajShah03/AI-Financial-News-Research-Tool.git
+cd AI-Financial-News-Research-Tool
+```
+Install dependencies:
 
-✅ AI Market Brief
-
-Tariffs are creating economic strain for India
-
-Indian indices like Sensex and Nifty dropped due to tariff concerns
-
-Some sectors like real estate and metals showed resilience amid Fed rate cut hopes
-(Sources: Moneycontrol, Aug 28, 2025)
-
-Future-oriented question
-
-What are analysts saying about India’s GDP outlook for 2025?
-
-✅ AI Market Brief
-
-Analysts cautious but positive about GDP growth in FY26
-
-Concerns include US tariffs, slower housing finance growth, and GST changes
-
-Forecast points to modest expansion compared to prior years
-(Sources: Moneycontrol, Aug 28–29, 2025 + AI Forecast)
-
-🚀 Getting Started
-# Clone the repo
-git clone https://github.com/RajShah03/AI-Equity-News-Research-Tool.git
-cd AI-Equity-News-Research-Tool
-
-# Install dependencies
+```bash
 pip install -r requirements.txt
+```
+Run the app:
 
-# Run the app
-python main.py
+```bash
+streamlit run main.py
+```
+
+Usage
+Open the Streamlit app.
+
+Ask questions about today’s or future markets in the input box:
+
+
+Example: Given the recent RBI policy updates, ongoing US-China trade tensions, and global crude oil trends, what is the likely impact on India’s top 3 IT and Pharma stocks over the next quarter?
+View AI-generated market brief with headline, key insights, and sources.
+
+Tech Stack
+Python 3.10+
+
+Streamlit
+
+LangChain
+
+Ollama LLM & Embeddings
+
+FAISS
+
+BeautifulSoup for web scraping
+
+Requests library
+
+Notes
+The FAISS index is cached locally for faster responses.
+
+The app is optimized for CPU usage.
