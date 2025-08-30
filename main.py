@@ -118,7 +118,7 @@ def scrape_and_prepare_docs():
     articles.extend(scrape_investing_forex())
 
     docs = [Document(page_content=text) for text in articles]
-    splitter = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=100)
+    splitter = RecursiveCharacterTextSplitter(chunk_size=600, chunk_overlap=50)  # smaller chunks for CPU
     return splitter.split_documents(docs)
 
 # -------------------------
@@ -151,12 +151,13 @@ else:
     st.toast("📦 FAISS index created & saved")
 
 # -------------------------
-# Custom Prompt (updated for predictions)
+# Custom Prompt
 # -------------------------
 prompt_template = """
 You are a financial research assistant.  
 Use the following context (today's scraped news) AND your financial reasoning to answer.  
 
+⚠️ Important: Only output the following structure. Do NOT add extra notes, instructions, or headings outside this format:
 Always structure like this:
 📌 **Headline**: One short summary sentence  
 📊 **Key Insights**: 3-5 bullet points (analysis, implications, data, risks, opportunities)  
@@ -173,8 +174,8 @@ Question: {question}
 
 PROMPT = PromptTemplate(template=prompt_template, input_variables=["context", "question"])
 
-retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
-llm = OllamaLLM(model="mistral")
+retriever = vectorstore.as_retriever(search_kwargs={"k": 2})  # faster for CPU
+llm = OllamaLLM(model="phi3:mini")  # CPU-friendly, quick reasoning
 
 qa_chain = RetrievalQA.from_chain_type(
     llm=llm,
